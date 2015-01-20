@@ -6,7 +6,6 @@ require "logstash/namespace"
 # ganglia's gmond. This is heavily based on the graphite output.
 class LogStash::Outputs::Ganglia < LogStash::Outputs::Base
   config_name "ganglia"
-  milestone 2
 
   # The address of the ganglia server.
   config :host, :validate => :string, :default => "localhost"
