@@ -12,9 +12,9 @@ describe LogStash::Outputs::Ganglia do
 
     let(:value)  { 12345 }
     let(:metric) { "metric.mine" }
-    subject { LogStash::Outputs::Ganglia.new("value" => "value", "metric" => "metric") }
+    subject { LogStash::Outputs::Ganglia.new("value" => "%{value}", "metric" => "%{metric}") }
 
-    let(:properties) { { "message" => "This is a message!", "value" => value}}
+    let(:properties) { { "message" => "This is a message!", "value" => value, "metric" => metric}}
     let(:event)      { LogStash::Event.new(properties) }
 
 
@@ -25,7 +25,7 @@ describe LogStash::Outputs::Ganglia do
     end
 
     it "should send the message to ganglia" do
-      expect(Ganglia::GMetric).to receive(:send).with(host, port, hash_including(:name => "metric", :value => 0))
+      expect(Ganglia::GMetric).to receive(:send).with(host, port, hash_including(:name => metric, :value => value))
       subject.receive(event)
     end
   end
