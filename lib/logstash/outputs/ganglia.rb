@@ -47,7 +47,7 @@ class LogStash::Outputs::Ganglia < LogStash::Outputs::Base
 
   public
   def receive(event)
-    return unless output?(event)
+    
 
     # gmetric only takes integer values, so convert it to int.
     case @metric_type
